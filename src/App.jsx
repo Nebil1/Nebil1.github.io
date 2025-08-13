@@ -109,36 +109,71 @@ export default function App() {
 
   useKeyboardNav({ containerRef, sectionIds, setDark, scrollToTop, scrollToEl, getCurrentSectionIndex });
 
-  // 🔥 Active section highlight (IntersectionObserver tied to scroll container)
-  const [active, setActive] = useState("home");
-  useEffect(() => {
-    const root = containerRef.current;
-    if (!root) return;
+  // Active section highlight (IntersectionObserver tied to scroll container)
+  // Active section (highlight in navbar)
+const [active, setActive] = useState("home");
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        // Pick the section whose center is most visible
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible?.target?.id) setActive(visible.target.id);
-      },
-      {
-        root,
-        threshold: [0.5],             // ~50% of section visible
-        rootMargin: "-10% 0px -40% 0px", // biases toward section center
+useEffect(() => {
+  const root = containerRef.current;
+  if (!root) return;
+
+  const els = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
+  let raf = 0;
+
+  const updateActive = () => {
+    raf = 0;
+
+    const y = root.scrollTop;
+    const h = root.clientHeight;
+
+    // Home guard
+    if (y < 80) {
+      setActive("home");
+      return;
+    }
+
+    // Footer-aware guard: only switch to footer when the center line is inside footer
+    const footerEl = document.getElementById("footer");
+    const footerTop = footerEl ? getElTop(footerEl, root) : Infinity;
+    const centerY = y + h * 0.35;
+
+    if (centerY >= footerTop + 16) {
+      setActive("footer");
+      return;
+    }
+
+    // Pick the section whose TOP is closest to the center line
+    let bestId = "home";
+    let bestDist = Infinity;
+
+    for (const el of els) {
+      // Skip footer in the main competition so Contact can win near the bottom
+      if (el.id === "footer") continue;
+
+      const top = getElTop(el, root);
+      const dist = Math.abs(top - centerY);
+      if (dist < bestDist) {
+        bestDist = dist;
+        bestId = el.id;
       }
-    );
+    }
 
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) io.observe(el);
-    });
+    setActive(bestId);
+  };
 
-    return () => io.disconnect();
-    // sectionIds is static; root is stable after first mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const onScroll = () => {
+    if (!raf) raf = requestAnimationFrame(updateActive);
+  };
+
+  root.addEventListener("scroll", onScroll, { passive: true });
+  updateActive();
+
+  return () => {
+    root.removeEventListener("scroll", onScroll);
+    if (raf) cancelAnimationFrame(raf);
+  };
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
   return (
     <div
@@ -161,7 +196,7 @@ export default function App() {
       <Aurora mx={mx} my={my} reduceMotion={reduceMotion} />
 
       {/* Navbar (now receives 'active') */}
-      <Navbar scrolled={scrolled} dark={dark} setDark={setDark} active={active} />
+     <Navbar scrolled={scrolled} dark={dark} setDark={setDark} active={active} />
 
       {/* Hero + Featured */}
       <main id="home" className="mx-auto max-w-7xl px-4">

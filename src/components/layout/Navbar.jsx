@@ -29,9 +29,9 @@ export default function Navbar({ scrolled, dark, setDark, active }) {
           </span>
         </a>
 
-        <nav className="hidden items-center gap-6 text-sm sm:flex">
+        <nav className="hidden items-center gap-6 text-sm sm:flex" role="navigation" aria-label="Primary">
           {navItems.map(({ id, label }) => {
-            const isActive = active === id || (active === "home" && id === "projects"); // optional: highlight Projects near top
+            const isActive = active === id; // <- removed the home->projects fallback
             return (
               <a
                 key={id}
