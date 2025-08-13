@@ -13,7 +13,7 @@ export default function Contact() {
             <p className="text-sm text-slate-600 dark:text-white/70">Based in Addis Ababa · Open to remote/hybrid</p>
           </div>
           <div className="flex gap-3">
-            <a href="mailto:your.email@example.com">
+            <a href="mailto:nebilyk@gmail.com">
               <Button className="bg-slate-900 text-white hover:ring-2 hover:ring-slate-700 dark:bg-white dark:text-slate-900 dark:hover:ring-white/50">
                 <Mail className="h-4 w-4" /> Email
               </Button>
@@ -23,7 +23,7 @@ export default function Contact() {
                 <Github className="h-4 w-4" /> GitHub
               </Button>
             </a>
-            <a href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noreferrer">
+            <a href="https://www.linkedin.com/in/nebilyisehak" target="_blank" rel="noreferrer">
               <Button className="bg-transparent text-slate-900 ring-1 ring-inset ring-slate-300 hover:bg-slate-50 dark:text-white dark:ring-white/30 dark:hover:bg-white/5">
                 <Linkedin className="h-4 w-4" /> LinkedIn
               </Button>

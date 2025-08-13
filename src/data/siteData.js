@@ -33,9 +33,9 @@ export const skills = {
 };
 
 export const certs = [
-  { name: "Microsoft Certified: Azure AI Fundamentals (AI-900)", year: "2025" },
-  { name: "Microsoft Certified: Azure Fundamentals (AZ-900)", year: "2025" },
-  { name: "Microsoft Certified: Azure Data Fundamentals (DP-900)", year: "2025" },
+  { name: "Microsoft Certified: Azure Fundamentals (AZ-900)", year: "2025", link: "https://learn.microsoft.com/en-us/users/nebilyisehak/credentials/cc9cfe964debdf50" },
+  { name: "Microsoft Certified: Azure AI Fundamentals (AI-900)", year: "2025", link: "https://learn.microsoft.com/en-us/users/nebilyisehak-8001/credentials/fa4d6e1cd6c91345" },
+  { name: "Microsoft Certified: Azure Data Fundamentals (DP-900)", year: "2025", link: "https://learn.microsoft.com/en-us/users/nebilyisehak/credentials/FEEA319601CF1496" },
 ];
 
 export const featured = [

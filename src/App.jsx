@@ -1,3 +1,4 @@
+// src/App.jsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useScroll } from "framer-motion";
 import { ArrowUp } from "lucide-react";
@@ -59,7 +60,19 @@ export default function App() {
     onScroll();
     return () => el.removeEventListener("scroll", onScroll);
   }, []);
-  const scrollToTop = () => containerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+
+  // Define scrollToTop
+  const scrollToTop = () =>
+    containerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+
+  // Safer element->container offset helper
+  const getElTop = (el, container) => {
+    if (!el || !container) return 0;
+    const cRect = container.getBoundingClientRect?.();
+    const eRect = el.getBoundingClientRect?.();
+    if (!cRect || !eRect) return 0;
+    return eRect.top - cRect.top + container.scrollTop;
+  };
 
   // Theme
   const [dark, setDark] = useDarkMode();
@@ -68,15 +81,18 @@ export default function App() {
     [dark]
   );
 
-  // Keyboard navigation
+  // Sections
   const sectionIds = ["home", "projects", "skills", "experience", "certs", "contact", "footer"];
+
+  // Keyboard navigation (uses helpers below)
   const scrollToEl = (el) => {
-    if (!el || !containerRef.current) return;
     const c = containerRef.current;
+    if (!el || !c) return;
     const maxTop = c.scrollHeight - c.clientHeight;
-    const target = Math.min(Math.max(el.offsetTop - 24, 0), maxTop);
+    const target = Math.min(Math.max(getElTop(el, c) - 24, 0), maxTop);
     c.scrollTo({ top: target, behavior: "smooth" });
   };
+
   const getCurrentSectionIndex = () => {
     const c = containerRef.current;
     if (!c) return 0;
@@ -84,21 +100,55 @@ export default function App() {
     let idx = 0;
     for (let i = 0; i < sectionIds.length; i++) {
       const el = document.getElementById(sectionIds[i]);
-      if (el && el.offsetTop - 40 <= y) idx = i;
+      if (!el) continue;
+      const top = getElTop(el, c);
+      if (top - 40 <= y) idx = i;
     }
     return idx;
   };
+
   useKeyboardNav({ containerRef, sectionIds, setDark, scrollToTop, scrollToEl, getCurrentSectionIndex });
+
+  // 🔥 Active section highlight (IntersectionObserver tied to scroll container)
+  const [active, setActive] = useState("home");
+  useEffect(() => {
+    const root = containerRef.current;
+    if (!root) return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        // Pick the section whose center is most visible
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible?.target?.id) setActive(visible.target.id);
+      },
+      {
+        root,
+        threshold: [0.5],             // ~50% of section visible
+        rootMargin: "-10% 0px -40% 0px", // biases toward section center
+      }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
+
+    return () => io.disconnect();
+    // sectionIds is static; root is stable after first mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div
       ref={containerRef}
       onMouseMove={onMouseMove}
       className="h-screen overflow-y-auto scroll-smooth pt-4
-                 bg-white text-slate-900
-                 selection:bg-indigo-500/40 selection:text-white
-                 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100
-                 snap-y snap-mandatory relative"
+           bg-gradient-to-b from-slate-50 via-indigo-50/30 to-emerald-50/20 text-slate-900
+           selection:bg-indigo-500/40 selection:text-white
+           dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100
+           snap-y snap-mandatory relative"
       style={{ ["--tw-ring-color"]: "var(--primary)", ...themeVars }}
     >
       {/* Progress bar */}
@@ -110,8 +160,8 @@ export default function App() {
       {/* Aurora */}
       <Aurora mx={mx} my={my} reduceMotion={reduceMotion} />
 
-      {/* Navbar */}
-      <Navbar scrolled={scrolled} dark={dark} setDark={setDark} />
+      {/* Navbar (now receives 'active') */}
+      <Navbar scrolled={scrolled} dark={dark} setDark={setDark} active={active} />
 
       {/* Hero + Featured */}
       <main id="home" className="mx-auto max-w-7xl px-4">
