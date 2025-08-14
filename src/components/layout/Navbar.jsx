@@ -5,6 +5,7 @@ import { Moon, Sun } from "lucide-react";
 
 export default function Navbar({ scrolled, dark, setDark, active }) {
   const navItems = [
+    { id: "home", label: "Home" },
     { id: "projects", label: "Projects" },
     { id: "skills", label: "Skills" },
     { id: "experience", label: "Experience" },
@@ -31,7 +32,7 @@ export default function Navbar({ scrolled, dark, setDark, active }) {
 
         <nav className="hidden items-center gap-6 text-sm sm:flex" role="navigation" aria-label="Primary">
           {navItems.map(({ id, label }) => {
-            const isActive = active === id; // <- removed the home->projects fallback
+            const isActive = active === id; 
             return (
               <a
                 key={id}

@@ -183,7 +183,7 @@ useEffect(() => {
            bg-gradient-to-b from-slate-50 via-indigo-50/30 to-emerald-50/20 text-slate-900
            selection:bg-indigo-500/40 selection:text-white
            dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100
-           snap-y snap-mandatory relative"
+           snap-y snap-proximity relative"
       style={{ ["--tw-ring-color"]: "var(--primary)", ...themeVars }}
     >
       {/* Progress bar */}
@@ -201,7 +201,6 @@ useEffect(() => {
       {/* Hero + Featured */}
       <main id="home" className="mx-auto max-w-7xl px-4">
         <Hero mx={mx} my={my} reduceMotion={reduceMotion} />
-        <FeaturedStrip featured={featured} />
       </main>
 
       {/* Data-driven sections */}

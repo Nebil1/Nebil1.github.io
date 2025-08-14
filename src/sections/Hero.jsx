@@ -41,11 +41,11 @@ export default function Hero({ mx, my, reduceMotion }) {
           </a>
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-2 opacity-90">
+        {/* <div className="mt-6 flex flex-wrap gap-2 opacity-90">
           <Badge><Cpu className="mr-1 inline h-3 w-3" /> CV & Vision</Badge>
           <Badge><Cloud className="mr-1 inline h-3 w-3" /> MLOps on Cloud</Badge>
           <Badge><Shield className="mr-1 inline h-3 w-3" /> Security by Design</Badge>
-        </div>
+        </div> */}
       </div>
 
       <div style={{ perspective: 1000 }}>
@@ -61,6 +61,7 @@ export default function Hero({ mx, my, reduceMotion }) {
                   ["Role Focus", "AI/ML · MLOps · Cloud Security"],
                   ["Open To", "Full-time · Internship · Remote/Hybrid"],
                   ["Core Stack", "PyTorch · Python · Docker · AWS/Azure"],
+                  ["Beyond the Code", "Tech builder · football fan · lifelong learner"],
                 ].map(([k, v]) => (
                   <div key={k} className="rounded-xl border border-slate-200 bg-slate-50 p-3 transition hover:border-indigo-300 hover:bg-slate-100 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
                     <div className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-white/60">{k}</div>
