@@ -42,7 +42,6 @@ export default function Hero({ mx, my, reduceMotion }) {
         </div>
 
         {/* <div className="mt-6 flex flex-wrap gap-2 opacity-90">
-          <Badge><Cpu className="mr-1 inline h-3 w-3" /> CV & Vision</Badge>
           <Badge><Cloud className="mr-1 inline h-3 w-3" /> MLOps on Cloud</Badge>
           <Badge><Shield className="mr-1 inline h-3 w-3" /> Security by Design</Badge>
         </div> */}

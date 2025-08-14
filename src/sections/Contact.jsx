@@ -6,7 +6,7 @@ import { Mail, Github, Linkedin } from "lucide-react";
 export default function Contact() {
   return (
     <Section id="contact" title="Get in touch" subtitle="Open to AI/ML and cloud security roles, internships, and collaborations.">
-      <Card className="p-6">
+      <Card className="p-6 snap-start">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
           <div>
             <h3 className="text-base font-semibold">Let’s build something reliable together.</h3>

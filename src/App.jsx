@@ -6,14 +6,14 @@ import { ArrowUp } from "lucide-react";
 import useDarkMode from "./hooks/useDarkMode.js";
 import useKeyboardNav from "./hooks/useKeyboardNav.js";
 
-import { projects, skills, certs, featured } from "./data/siteData.js";
+import { projects, skills, certs /*, featured*/ } from "./data/siteData.js";
 
 import Aurora from "./components/layout/Aurora.jsx";
 import Navbar from "./components/layout/Navbar.jsx";
 import Footer from "./components/layout/Footer.jsx";
 
 import Hero from "./sections/Hero.jsx";
-import FeaturedStrip from "./sections/FeaturedStrip.jsx";
+// import FeaturedStrip from "./sections/FeaturedStrip.jsx";
 import Projects from "./sections/Projects.jsx";
 import Skills from "./sections/Skills.jsx";
 import Experience from "./sections/Experience.jsx";
@@ -62,10 +62,9 @@ export default function App() {
   }, []);
 
   // Define scrollToTop
-  const scrollToTop = () =>
-    containerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  const scrollToTop = () => containerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
 
-  // Safer element->container offset helper
+  // element->container offset
   const getElTop = (el, container) => {
     if (!el || !container) return 0;
     const cRect = container.getBoundingClientRect?.();
@@ -84,7 +83,7 @@ export default function App() {
   // Sections
   const sectionIds = ["home", "projects", "skills", "experience", "certs", "contact", "footer"];
 
-  // Keyboard navigation (uses helpers below)
+  // Keyboard navigation helpers
   const scrollToEl = (el) => {
     const c = containerRef.current;
     if (!el || !c) return;
@@ -109,7 +108,7 @@ export default function App() {
 
   useKeyboardNav({ containerRef, sectionIds, setDark, scrollToTop, scrollToEl, getCurrentSectionIndex });
 
-  // Active section highlight (rAF-based; lightweight + responsive)
+  // Active section highlight (rAF-based)
   const [active, setActive] = useState("home");
   useEffect(() => {
     const root = containerRef.current;
@@ -172,8 +171,7 @@ export default function App() {
       className="h-screen overflow-y-auto overscroll-y-contain scroll-smooth pt-4
            bg-gradient-to-b from-slate-50 via-indigo-50/30 to-emerald-50/20 text-slate-900
            selection:bg-indigo-500/40 selection:text-white
-           dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100
-           snap-y snap-proximity md:snap-mandatory relative"
+           dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100 snap-none sm:snap-y sm:snap-proximity md:snap-mandatory relative"
       style={{ touchAction: "manipulation", ["--tw-ring-color"]: "var(--primary)", ...themeVars }}
     >
       {/* Progress bar */}
@@ -182,13 +180,13 @@ export default function App() {
         className="fixed left-0 top-0 z-[60] h-1 origin-left bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-emerald-400 dark:from-indigo-400 dark:via-sky-400 dark:to-emerald-300"
       />
 
-      {/* Aurora (already pointer-events-none in your component) */}
+      {/* Aurora (already pointer-events-none) */}
       <Aurora mx={mx} my={my} reduceMotion={reduceMotion} />
 
       {/* Navbar */}
       <Navbar scrolled={scrolled} dark={dark} setDark={setDark} active={active} />
 
-      {/* Hero + hook for See Projects (mobile tap-safe) */}
+      {/* Hero (+ tap-safe See Projects) */}
       <main id="home" className="mx-auto max-w-7xl px-4">
         <Hero
           mx={mx}
@@ -197,9 +195,9 @@ export default function App() {
           onSeeProjects={() => {
             const el = document.getElementById("projects");
             if (el) {
-              // briefly suppress snap to avoid “snap back” on fast taps
               const c = containerRef.current;
               if (c) {
+                // briefly suppress snap to avoid “snap back” after the programmatic scroll
                 c.classList.add("snap-none");
                 scrollToEl(el);
                 setTimeout(() => c.classList.remove("snap-none"), 450);
@@ -209,11 +207,11 @@ export default function App() {
             }
           }}
         />
-        {/* If you still render FeaturedStrip, leave it below */}
-        {/* <FeaturedStrip featured={featured} /> */}
+        {/* If you still want the logos strip later:
+        <FeaturedStrip featured={featured} /> */}
       </main>
 
-      {/* Data-driven sections (ensure each <section> uses className="snap-start") */}
+      {/* Sections (be sure each <section> has 'snap-start') */}
       <Projects projects={projects} />
       <Skills skills={skills} />
       <Experience />

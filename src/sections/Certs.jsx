@@ -5,7 +5,7 @@ import Button from "../components/ui/Button.jsx";
 export default function Certs({ certs }) {
   return (
     <Section id="certs" title="Certifications">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="snap-start grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {certs.map((c) => (
           <Card key={c.name} className="p-5">
             {/* top row: title + View button (replaces the old year position) */}

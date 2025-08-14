@@ -7,7 +7,7 @@ import { Brain, ExternalLink } from "lucide-react";
 export default function Projects({ projects }) {
   return (
     <Section id="projects" title="Featured Projects" subtitle="Work that shows end-to-end thinking: data → models → product → security.">
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="snap-start grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((p) => (
           <Card key={p.title} className="flex h-full flex-col p-6">
             <div className="mb-3 flex items-center gap-2">

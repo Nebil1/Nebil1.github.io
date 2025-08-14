@@ -25,7 +25,7 @@ export default function Experience() {
 
   return (
     <Section id="experience" title="Experience" subtitle="A snapshot of roles and impact. Full history available on request.">
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2 snap-start">
         {jobs.map((job) => (
           <Card key={job.role} className="p-6">
             <h3 className="text-base font-semibold">{job.role}</h3>
