@@ -57,6 +57,16 @@ export default function Navbar({ scrolled, dark, setDark, active }) {
           >
             {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </Button>
+        
+          <a
+            href="https://docs.google.com/viewer?url=YOUR_PDF_LINK_HERE"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button className="bg-indigo-600 text-white hover:brightness-110 focus:ring-indigo-500">
+              Résumé
+            </Button>
+          </a>
         </div>
       </div>
     </header>
