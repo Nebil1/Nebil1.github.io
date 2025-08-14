@@ -109,82 +109,72 @@ export default function App() {
 
   useKeyboardNav({ containerRef, sectionIds, setDark, scrollToTop, scrollToEl, getCurrentSectionIndex });
 
-  // Active section highlight (IntersectionObserver tied to scroll container)
-  // Active section (highlight in navbar)
-const [active, setActive] = useState("home");
+  // Active section highlight (rAF-based; lightweight + responsive)
+  const [active, setActive] = useState("home");
+  useEffect(() => {
+    const root = containerRef.current;
+    if (!root) return;
 
-useEffect(() => {
-  const root = containerRef.current;
-  if (!root) return;
+    const els = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
+    let raf = 0;
 
-  const els = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
-  let raf = 0;
+    const updateActive = () => {
+      raf = 0;
+      const y = root.scrollTop;
+      const h = root.clientHeight;
 
-  const updateActive = () => {
-    raf = 0;
-
-    const y = root.scrollTop;
-    const h = root.clientHeight;
-
-    // Home guard
-    if (y < 80) {
-      setActive("home");
-      return;
-    }
-
-    // Footer-aware guard: only switch to footer when the center line is inside footer
-    const footerEl = document.getElementById("footer");
-    const footerTop = footerEl ? getElTop(footerEl, root) : Infinity;
-    const centerY = y + h * 0.35;
-
-    if (centerY >= footerTop + 16) {
-      setActive("footer");
-      return;
-    }
-
-    // Pick the section whose TOP is closest to the center line
-    let bestId = "home";
-    let bestDist = Infinity;
-
-    for (const el of els) {
-      // Skip footer in the main competition so Contact can win near the bottom
-      if (el.id === "footer") continue;
-
-      const top = getElTop(el, root);
-      const dist = Math.abs(top - centerY);
-      if (dist < bestDist) {
-        bestDist = dist;
-        bestId = el.id;
+      if (y < 80) {
+        setActive("home");
+        return;
       }
-    }
 
-    setActive(bestId);
-  };
+      const footerEl = document.getElementById("footer");
+      const footerTop = footerEl ? getElTop(footerEl, root) : Infinity;
+      const centerY = y + h * 0.35;
 
-  const onScroll = () => {
-    if (!raf) raf = requestAnimationFrame(updateActive);
-  };
+      if (centerY >= footerTop + 16) {
+        setActive("footer");
+        return;
+      }
 
-  root.addEventListener("scroll", onScroll, { passive: true });
-  updateActive();
+      let bestId = "home";
+      let bestDist = Infinity;
+      for (const el of els) {
+        if (el.id === "footer") continue;
+        const top = getElTop(el, root);
+        const dist = Math.abs(top - centerY);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestId = el.id;
+        }
+      }
+      setActive(bestId);
+    };
 
-  return () => {
-    root.removeEventListener("scroll", onScroll);
-    if (raf) cancelAnimationFrame(raf);
-  };
-// eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(updateActive);
+    };
+
+    root.addEventListener("scroll", onScroll, { passive: true });
+    updateActive();
+
+    return () => {
+      root.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div
       ref={containerRef}
       onMouseMove={onMouseMove}
-      className="h-screen overflow-y-auto scroll-smooth pt-4
+      className="h-screen overflow-y-auto overscroll-y-contain scroll-smooth pt-4
            bg-gradient-to-b from-slate-50 via-indigo-50/30 to-emerald-50/20 text-slate-900
            selection:bg-indigo-500/40 selection:text-white
            dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100
-           snap-y snap-proximity relative"
-      style={{ ["--tw-ring-color"]: "var(--primary)", ...themeVars }}
+           snap-y snap-proximity md:snap-mandatory relative"
+      style={{ touchAction: "manipulation", ["--tw-ring-color"]: "var(--primary)", ...themeVars }}
     >
       {/* Progress bar */}
       <motion.div
@@ -192,18 +182,38 @@ useEffect(() => {
         className="fixed left-0 top-0 z-[60] h-1 origin-left bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-emerald-400 dark:from-indigo-400 dark:via-sky-400 dark:to-emerald-300"
       />
 
-      {/* Aurora */}
+      {/* Aurora (already pointer-events-none in your component) */}
       <Aurora mx={mx} my={my} reduceMotion={reduceMotion} />
 
-      {/* Navbar (now receives 'active') */}
-     <Navbar scrolled={scrolled} dark={dark} setDark={setDark} active={active} />
+      {/* Navbar */}
+      <Navbar scrolled={scrolled} dark={dark} setDark={setDark} active={active} />
 
-      {/* Hero + Featured */}
+      {/* Hero + hook for See Projects (mobile tap-safe) */}
       <main id="home" className="mx-auto max-w-7xl px-4">
-        <Hero mx={mx} my={my} reduceMotion={reduceMotion} />
+        <Hero
+          mx={mx}
+          my={my}
+          reduceMotion={reduceMotion}
+          onSeeProjects={() => {
+            const el = document.getElementById("projects");
+            if (el) {
+              // briefly suppress snap to avoid “snap back” on fast taps
+              const c = containerRef.current;
+              if (c) {
+                c.classList.add("snap-none");
+                scrollToEl(el);
+                setTimeout(() => c.classList.remove("snap-none"), 450);
+              } else {
+                scrollToEl(el);
+              }
+            }
+          }}
+        />
+        {/* If you still render FeaturedStrip, leave it below */}
+        {/* <FeaturedStrip featured={featured} /> */}
       </main>
 
-      {/* Data-driven sections */}
+      {/* Data-driven sections (ensure each <section> uses className="snap-start") */}
       <Projects projects={projects} />
       <Skills skills={skills} />
       <Experience />
