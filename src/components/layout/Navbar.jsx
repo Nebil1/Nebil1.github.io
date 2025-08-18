@@ -59,7 +59,7 @@ export default function Navbar({ scrolled, dark, setDark, active }) {
           </Button>
         
           <a
-            href="https://docs.google.com/viewer?url=YOUR_PDF_LINK_HERE"
+            href="https://drive.google.com/file/d/1Fx1kNVYCJXgas7DEsSgnBf4YC1nUV9FZ/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
           >

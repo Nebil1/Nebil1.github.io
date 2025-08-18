@@ -46,7 +46,7 @@ export default function App() {
   const { scrollYProgress } = useScroll({ container: containerRef });
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 20, mass: 0.4 });
 
-  // Shadow + back-to-top
+  // Header shadow + back-to-top
   const [scrolled, setScrolled] = useState(false);
   const [showTop, setShowTop] = useState(false);
   useEffect(() => {
@@ -61,10 +61,10 @@ export default function App() {
     return () => el.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Define scrollToTop
+  // Smooth top scroll
   const scrollToTop = () => containerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
 
-  // element->container offset
+  // El->container offset helper
   const getElTop = (el, container) => {
     if (!el || !container) return 0;
     const cRect = container.getBoundingClientRect?.();
@@ -80,10 +80,10 @@ export default function App() {
     [dark]
   );
 
-  // Sections
+  // Section IDs (order matters)
   const sectionIds = ["home", "projects", "skills", "experience", "certs", "contact", "footer"];
 
-  // Keyboard navigation helpers
+  // Scroll helpers for keyboard + programmatic jumps
   const scrollToEl = (el) => {
     const c = containerRef.current;
     if (!el || !c) return;
@@ -106,9 +106,10 @@ export default function App() {
     return idx;
   };
 
+  
   useKeyboardNav({ containerRef, sectionIds, setDark, scrollToTop, scrollToEl, getCurrentSectionIndex });
 
-  // Active section highlight (rAF-based)
+  // (2) Fast, lightweight active-section highlighter (rAF)
   const [active, setActive] = useState("home");
   useEffect(() => {
     const root = containerRef.current;
@@ -164,6 +165,42 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // (3) Snap suppressor: disable while the user is touching
+  const disableSnapTemporarily = (ms = 700) => {
+    const c = containerRef.current;
+    if (!c) return;
+    c.classList.add("snap-none");
+    window.clearTimeout(disableSnapTemporarily._t);
+    disableSnapTemporarily._t = window.setTimeout(() => c.classList.remove("snap-none"), ms);
+  };
+
+  useEffect(() => {
+    const c = containerRef.current;
+    if (!c) return;
+
+    const onTouchStart = () => disableSnapTemporarily(900);
+    const onTouchMove = () => disableSnapTemporarily(900);
+
+    let endTimer = 0;
+    const onScrollEndish = () => {
+      window.clearTimeout(endTimer);
+      endTimer = window.setTimeout(() => c.classList.remove("snap-none"), 140);
+    };
+
+    c.addEventListener("touchstart", onTouchStart, { passive: true });
+    c.addEventListener("touchmove", onTouchMove, { passive: true });
+    c.addEventListener("scroll", onScrollEndish, { passive: true });
+    c.addEventListener?.("scrollend", onScrollEndish);
+
+    return () => {
+      c.removeEventListener("touchstart", onTouchStart);
+      c.removeEventListener("touchmove", onTouchMove);
+      c.removeEventListener("scroll", onScrollEndish);
+      c.removeEventListener?.("scrollend", onScrollEndish);
+      window.clearTimeout(endTimer);
+    };
+  }, []);
+
   return (
     <div
       ref={containerRef}
@@ -171,7 +208,8 @@ export default function App() {
       className="h-screen overflow-y-auto overscroll-y-contain scroll-smooth pt-4
            bg-gradient-to-b from-slate-50 via-indigo-50/30 to-emerald-50/20 text-slate-900
            selection:bg-indigo-500/40 selection:text-white
-           dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100 snap-none sm:snap-y sm:snap-proximity md:snap-mandatory relative"
+           dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100
+           snap-none sm:snap-y sm:snap-proximity md:snap-mandatory relative"
       style={{ touchAction: "manipulation", ["--tw-ring-color"]: "var(--primary)", ...themeVars }}
     >
       {/* Progress bar */}
@@ -180,10 +218,10 @@ export default function App() {
         className="fixed left-0 top-0 z-[60] h-1 origin-left bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-emerald-400 dark:from-indigo-400 dark:via-sky-400 dark:to-emerald-300"
       />
 
-      {/* Aurora (already pointer-events-none) */}
+      {/* Aurora (already pointer-events-none inside component) */}
       <Aurora mx={mx} my={my} reduceMotion={reduceMotion} />
 
-      {/* Navbar */}
+      {/* Navbar with active highlight */}
       <Navbar scrolled={scrolled} dark={dark} setDark={setDark} active={active} />
 
       {/* Hero (+ tap-safe See Projects) */}
@@ -194,24 +232,16 @@ export default function App() {
           reduceMotion={reduceMotion}
           onSeeProjects={() => {
             const el = document.getElementById("projects");
-            if (el) {
-              const c = containerRef.current;
-              if (c) {
-                // briefly suppress snap to avoid “snap back” after the programmatic scroll
-                c.classList.add("snap-none");
-                scrollToEl(el);
-                setTimeout(() => c.classList.remove("snap-none"), 450);
-              } else {
-                scrollToEl(el);
-              }
-            }
+            if (!el) return;
+            disableSnapTemporarily(750);
+            scrollToEl(el);
           }}
         />
-        {/* If you still want the logos strip later:
-        <FeaturedStrip featured={featured} /> */}
+        {/* Optional logos strip */}
+        {/* <FeaturedStrip featured={featured} /> */}
       </main>
 
-      {/* Sections (be sure each <section> has 'snap-start') */}
+      {/* Sections (ensure each uses 'snap-start' at its root) */}
       <Projects projects={projects} />
       <Skills skills={skills} />
       <Experience />
