@@ -20,11 +20,25 @@ import Experience from "./sections/Experience.jsx";
 import Certs from "./sections/Certs.jsx";
 import Contact from "./sections/Contact.jsx";
 
+// Constants for scroll thresholds
+const SCROLL_THRESHOLDS = {
+  BACK_TO_TOP: 600,
+  HEADER_SHADOW: 20,
+  SECTION_OFFSET: 80,
+  SECTION_CENTER: 0.35,
+  FOOTER_OFFSET: 16,
+  SCROLL_OFFSET: 24,
+  SECTION_DETECTION: 40
+};
+
 export default function App() {
   // Parallax inputs (-0.5..0.5)
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const [reduceMotion, setReduceMotion] = useState(false);
+  
+  // Cache DOM elements to avoid repeated queries
+  const sectionElementsRef = useRef(new Map());
 
   useEffect(() => {
     const m = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -53,8 +67,8 @@ export default function App() {
     const el = containerRef.current;
     if (!el) return;
     const onScroll = () => {
-      setShowTop(el.scrollTop > 600);
-      setScrolled(el.scrollTop > 20);
+      setShowTop(el.scrollTop > SCROLL_THRESHOLDS.BACK_TO_TOP);
+      setScrolled(el.scrollTop > SCROLL_THRESHOLDS.HEADER_SHADOW);
     };
     el.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
@@ -88,7 +102,7 @@ export default function App() {
     const c = containerRef.current;
     if (!el || !c) return;
     const maxTop = c.scrollHeight - c.clientHeight;
-    const target = Math.min(Math.max(getElTop(el, c) - 24, 0), maxTop);
+    const target = Math.min(Math.max(getElTop(el, c) - SCROLL_THRESHOLDS.SCROLL_OFFSET, 0), maxTop);
     c.scrollTo({ top: target, behavior: "smooth" });
   };
 
@@ -101,7 +115,7 @@ export default function App() {
       const el = document.getElementById(sectionIds[i]);
       if (!el) continue;
       const top = getElTop(el, c);
-      if (top - 40 <= y) idx = i;
+      if (top - SCROLL_THRESHOLDS.SECTION_DETECTION <= y) idx = i;
     }
     return idx;
   };
@@ -115,7 +129,15 @@ export default function App() {
     const root = containerRef.current;
     if (!root) return;
 
-    const els = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
+    // Cache section elements
+    const els = sectionIds.map((id) => {
+      let el = sectionElementsRef.current.get(id);
+      if (!el) {
+        el = document.getElementById(id);
+        if (el) sectionElementsRef.current.set(id, el);
+      }
+      return el;
+    }).filter(Boolean);
     let raf = 0;
 
     const updateActive = () => {
@@ -123,16 +145,20 @@ export default function App() {
       const y = root.scrollTop;
       const h = root.clientHeight;
 
-      if (y < 80) {
+      if (y < SCROLL_THRESHOLDS.SECTION_OFFSET) {
         setActive("home");
         return;
       }
 
-      const footerEl = document.getElementById("footer");
+      let footerEl = sectionElementsRef.current.get('footer');
+      if (!footerEl) {
+        footerEl = document.getElementById("footer");
+        if (footerEl) sectionElementsRef.current.set('footer', footerEl);
+      }
       const footerTop = footerEl ? getElTop(footerEl, root) : Infinity;
-      const centerY = y + h * 0.35;
+      const centerY = y + h * SCROLL_THRESHOLDS.SECTION_CENTER;
 
-      if (centerY >= footerTop + 16) {
+      if (centerY >= footerTop + SCROLL_THRESHOLDS.FOOTER_OFFSET) {
         setActive("footer");
         return;
       }
@@ -166,12 +192,18 @@ export default function App() {
   }, []);
 
   // (3) Snap suppressor: disable while the user is touching
+  const snapTimeoutRef = useRef(null);
   const disableSnapTemporarily = (ms = 700) => {
     const c = containerRef.current;
     if (!c) return;
     c.classList.add("snap-none");
-    window.clearTimeout(disableSnapTemporarily._t);
-    disableSnapTemporarily._t = window.setTimeout(() => c.classList.remove("snap-none"), ms);
+    if (snapTimeoutRef.current) {
+      window.clearTimeout(snapTimeoutRef.current);
+    }
+    snapTimeoutRef.current = window.setTimeout(() => {
+      c?.classList.remove("snap-none");
+      snapTimeoutRef.current = null;
+    }, ms);
   };
 
   useEffect(() => {
@@ -205,12 +237,17 @@ export default function App() {
     <div
       ref={containerRef}
       onMouseMove={onMouseMove}
-      className="h-screen overflow-y-auto overscroll-y-contain scroll-smooth pt-4
+      className="h-screen overflow-y-auto overscroll-y-contain scroll-smooth pt-2 sm:pt-4
            bg-gradient-to-b from-slate-50 via-indigo-50/30 to-emerald-50/20 text-slate-900
            selection:bg-indigo-500/40 selection:text-white
            dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100
-           snap-none sm:snap-y sm:snap-proximity md:snap-mandatory relative"
-      style={{ touchAction: "manipulation", ["--tw-ring-color"]: "var(--primary)", ...themeVars }}
+           snap-none sm:snap-y sm:snap-proximity lg:snap-mandatory relative"
+      style={{ 
+        touchAction: "pan-y pinch-zoom", 
+        WebkitOverflowScrolling: "touch",
+        ["--tw-ring-color"]: "var(--primary)", 
+        ...themeVars 
+      }}
     >
       {/* Progress bar */}
       <motion.div
@@ -257,7 +294,7 @@ export default function App() {
         initial={false}
         animate={{ opacity: showTop ? 1 : 0, y: showTop ? 0 : 20, pointerEvents: showTop ? "auto" : "none" }}
         transition={{ duration: 0.25, ease: "easeOut" }}
-        className="fixed bottom-6 right-6 z-[65] rounded-full border border-slate-200 bg-white/90 p-3 shadow-lg backdrop-blur-sm hover:shadow-xl dark:border-white/10 dark:bg-slate-900/70"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[65] rounded-full border border-slate-200 bg-white/90 p-2 sm:p-3 shadow-lg backdrop-blur-sm hover:shadow-xl dark:border-white/10 dark:bg-slate-900/70 touch-manipulation"
         aria-label="Back to top"
         title="Back to top"
       >
