@@ -23,7 +23,7 @@ export default function Certs({ certs = [] }) {
 
               {c.link && isValidUrl(c.link) ? (
                 <a href={c.link} target="_blank" rel="noreferrer">
-                  <Button className="bg-indigo-600 text-white hover:brightness-110 focus:ring-indigo-500 px-3 py-1 text-xs">
+                  <Button variant="default" className="px-3 py-1 text-xs">
                     View
                   </Button>
                 </a>

@@ -1,7 +1,7 @@
 // src/App.jsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useScroll } from "framer-motion";
-import { ArrowUp } from "lucide-react";
+import { IconArrowUp } from "@tabler/icons-react";
 
 import useDarkMode from "./hooks/useDarkMode.js";
 import useKeyboardNav from "./hooks/useKeyboardNav.js";
@@ -298,7 +298,7 @@ export default function App() {
         aria-label="Back to top"
         title="Back to top"
       >
-        <ArrowUp className="h-5 w-5" />
+        <IconArrowUp className="h-5 w-5" />
       </motion.button>
 
       {/* Tiny CSS vars */}

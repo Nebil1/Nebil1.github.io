@@ -2,7 +2,7 @@ import { motion, useSpring, useTransform } from "framer-motion";
 import Button from "../components/ui/Button.jsx";
 import Badge from "../components/ui/Badge.jsx";
 import Card from "../components/ui/Card.jsx";
-import { ArrowRight, Mail, Cpu, Cloud, Shield } from "lucide-react";
+import { IconArrowRight, IconMail, IconCpu, IconCloud, IconShield } from "@tabler/icons-react";
 
 export default function Hero({ mx, my, reduceMotion }) {
   // 3D tilt tied to parallax
@@ -30,13 +30,13 @@ export default function Hero({ mx, my, reduceMotion }) {
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
           <a href="#projects">
-            <Button className="bg-slate-900 text-white hover:ring-2 hover:ring-slate-700 focus:ring-slate-700 dark:bg-white dark:text-slate-900 dark:hover:ring-white/50">
-              See Projects <ArrowRight className="h-4 w-4" />
+            <Button variant="default">
+              See Projects <IconArrowRight className="h-4 w-4" />
             </Button>
           </a>
           <a href="#contact">
-            <Button className="bg-transparent text-slate-900 ring-1 ring-inset ring-slate-300 hover:bg-slate-50 dark:text-white dark:ring-white/30 dark:hover:bg-white/5">
-              Contact <Mail className="h-4 w-4" />
+            <Button variant="outline">
+              Contact <IconMail className="h-4 w-4" />
             </Button>
           </a>
         </div>

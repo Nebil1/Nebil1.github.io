@@ -1,8 +1,9 @@
 // src/components/layout/Navbar.jsx
 import { useState } from "react";
 import Button from "../ui/Button.jsx";
+import MagneticWrapper from "../ui/MagneticWrapper.jsx";
 import Logo from "../Logo.jsx";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { IconMoon, IconSun, IconMenu2, IconX } from "@tabler/icons-react";
 
 const navItems = [
   { id: "home", label: "Home" },
@@ -53,22 +54,26 @@ export default function Navbar({ scrolled, dark, setDark, active }) {
 
         {/* Mobile menu button */}
         <Button
-          className="md:hidden bg-slate-200 text-slate-900 hover:ring-2 hover:ring-slate-400 dark:bg-white/10 dark:text-white dark:hover:ring-white/40 p-2 touch-manipulation"
+          variant="secondary"
+          className="md:hidden p-2 touch-manipulation"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle mobile menu"
         >
-          {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          {mobileMenuOpen ? <IconX className="h-4 w-4" /> : <IconMenu2 className="h-4 w-4" />}
         </Button>
 
         <div className="flex items-center gap-1 sm:gap-2">
-          <Button
-            aria-label="Toggle dark mode"
-            className="bg-slate-200 text-slate-900 hover:ring-2 hover:ring-slate-400 dark:bg-white/10 dark:text-white dark:hover:ring-white/40 p-2 sm:p-2.5 touch-manipulation"
-            onClick={() => setDark((d) => !d)}
-            title="Toggle dark mode"
-          >
-            {dark ? <Sun className="h-3 w-3 sm:h-4 sm:w-4" /> : <Moon className="h-3 w-3 sm:h-4 sm:w-4" />}
-          </Button>
+          <MagneticWrapper>
+            <Button
+              aria-label="Toggle dark mode"
+              variant="secondary"
+              className="p-2 sm:p-2.5 touch-manipulation"
+              onClick={() => setDark((d) => !d)}
+              title="Toggle dark mode"
+            >
+              {dark ? <IconSun className="h-3 w-3 sm:h-4 sm:w-4" /> : <IconMoon className="h-3 w-3 sm:h-4 sm:w-4" />}
+            </Button>
+          </MagneticWrapper>
         
           <a
             href="https://drive.google.com/file/d/1Fx1kNVYCJXgas7DEsSgnBf4YC1nUV9FZ/view?usp=sharing"
@@ -76,7 +81,7 @@ export default function Navbar({ scrolled, dark, setDark, active }) {
             rel="noopener noreferrer"
             className="touch-manipulation"
           >
-            <Button className="bg-indigo-600 text-white hover:brightness-110 focus:ring-indigo-500 text-xs sm:text-sm px-2 sm:px-3 py-1.5 sm:py-2">
+            <Button variant="default" className="text-xs sm:text-sm px-2 sm:px-3 py-1.5 sm:py-2">
               <span className="hidden sm:inline">Résumé</span>
               <span className="sm:hidden">CV</span>
             </Button>

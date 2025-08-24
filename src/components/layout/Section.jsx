@@ -1,4 +1,4 @@
-import { Sparkles } from "lucide-react";
+import { IconSparkles } from "@tabler/icons-react";
 
 export default function Section({ id, title, subtitle, children }) {
   return (
@@ -8,7 +8,7 @@ export default function Section({ id, title, subtitle, children }) {
           {title && (
             <div className="mb-6 flex items-center gap-3">
               <div className="rounded-2xl border border-white/10 bg-white/5 p-2 dark:border-white/10 dark:bg-white/5">
-                <Sparkles className="h-5 w-5" />
+                <IconSparkles className="h-5 w-5" />
               </div>
               <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h2>
             </div>

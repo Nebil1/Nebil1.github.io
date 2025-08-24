@@ -56,4 +56,4 @@ npm run dev
 
 ## Deployment
 
-Automatically deployed to GitHub Pages via GitHub Actions on push to main branch.
+Automatically deployed to GitHub Pages via GitHub Actions
