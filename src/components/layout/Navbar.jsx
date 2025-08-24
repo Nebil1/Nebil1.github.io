@@ -20,20 +20,34 @@ export default function Navbar({ scrolled, dark, setDark, active }) {
   return (
     <header className="sticky top-0 z-50 mx-auto max-w-7xl px-2 sm:px-4 pt-2 sm:pt-3">
       <div
-        className={`flex h-12 sm:h-14 md:h-16 items-center justify-between rounded-xl sm:rounded-2xl border px-2 sm:px-3 md:px-4 transition-shadow duration-300
+        className={`flex h-12 sm:h-14 md:h-16 items-center justify-between rounded-xl sm:rounded-2xl border px-3 sm:px-4 transition-shadow duration-300
                     border-slate-200 bg-white/55 backdrop-blur-md
                     dark:border-white/10 dark:bg-slate-950/60 dark:backdrop-blur-sm
                     ${scrolled ? "shadow-lg" : "shadow-sm"}`}
       >
-        <a href="#home" className="group inline-flex items-center gap-1 sm:gap-2 touch-manipulation">
-          <div className="rounded-lg sm:rounded-xl border border-slate-200 bg-slate-100 p-0.5 sm:p-1 transition group-hover:scale-105 dark:border-white/10 dark:bg-white/5">
-            <Logo />
-          </div>
-          <span className="text-xs sm:text-sm font-semibold tracking-wide opacity-90 transition group-hover:opacity-100 hidden xs:inline">
-            Nebil Yisehak
-          </span>
-        </a>
+        {/* Left side - Menu button + Logo */}
+        <div className="flex items-center gap-2">
+          {/* Mobile menu button - moved to left */}
+          <Button
+            variant="secondary"
+            className="md:hidden p-2 touch-manipulation"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle mobile menu"
+          >
+            {mobileMenuOpen ? <IconX className="h-4 w-4" /> : <IconMenu2 className="h-4 w-4" />}
+          </Button>
+          
+          <a href="#home" className="group inline-flex items-center gap-1 sm:gap-2 touch-manipulation">
+            <div className="rounded-lg sm:rounded-xl border border-slate-200 bg-slate-100 p-0.5 sm:p-1 transition group-hover:scale-105 dark:border-white/10 dark:bg-white/5">
+              <Logo />
+            </div>
+            <span className="text-xs sm:text-sm font-semibold tracking-wide opacity-90 transition group-hover:opacity-100 hidden xs:inline">
+              Nebil Yisehak
+            </span>
+          </a>
+        </div>
 
+        {/* Desktop navigation */}
         <nav className="hidden items-center gap-3 sm:gap-4 lg:gap-6 text-xs sm:text-sm md:flex" role="navigation" aria-label="Primary">
           {navItems.map(({ id, label }) => {
             const isActive = active === id; 
@@ -52,17 +66,8 @@ export default function Navbar({ scrolled, dark, setDark, active }) {
           })}
         </nav>
 
-        {/* Mobile menu button */}
-        <Button
-          variant="secondary"
-          className="md:hidden p-2 touch-manipulation"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle mobile menu"
-        >
-          {mobileMenuOpen ? <IconX className="h-4 w-4" /> : <IconMenu2 className="h-4 w-4" />}
-        </Button>
-
-        <div className="flex items-center gap-1 sm:gap-2">
+        {/* Right side - Theme toggle + Resume */}
+        <div className="flex items-center gap-2 sm:gap-3">
           <MagneticWrapper>
             <Button
               aria-label="Toggle dark mode"
@@ -71,7 +76,7 @@ export default function Navbar({ scrolled, dark, setDark, active }) {
               onClick={() => setDark((d) => !d)}
               title="Toggle dark mode"
             >
-              {dark ? <IconSun className="h-3 w-3 sm:h-4 sm:w-4" /> : <IconMoon className="h-3 w-3 sm:h-4 sm:w-4" />}
+              {dark ? <IconSun className="h-4 w-4" /> : <IconMoon className="h-4 w-4" />}
             </Button>
           </MagneticWrapper>
         
@@ -81,7 +86,7 @@ export default function Navbar({ scrolled, dark, setDark, active }) {
             rel="noopener noreferrer"
             className="touch-manipulation"
           >
-            <Button variant="default" className="text-xs sm:text-sm px-2 sm:px-3 py-1.5 sm:py-2">
+            <Button variant="default" className="text-xs sm:text-sm px-3 sm:px-4 py-2">
               <span className="hidden sm:inline">Résumé</span>
               <span className="sm:hidden">CV</span>
             </Button>

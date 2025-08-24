@@ -88,7 +88,7 @@ export default function App() {
   };
 
   // Theme
-  const [dark, setDark] = useDarkMode();
+  const [dark, setDark] = useDarkMode(true); // Default to dark mode
   const themeVars = useMemo(
     () => ({ "--primary": dark ? "#6366f1" : "#4f46e5", "--primary-foreground": "#ffffff" }),
     [dark]
