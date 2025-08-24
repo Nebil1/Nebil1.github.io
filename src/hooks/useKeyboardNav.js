@@ -31,21 +31,22 @@ export default function useKeyboardNav({
 
       if (e.key === "End") {
         e.preventDefault();
-        const c = containerRef.current;
-        if (c) c.scrollTo({ top: c.scrollHeight - c.clientHeight, behavior: "smooth" });
+        const container = containerRef.current;
+        if (container) container.scrollTo({ top: container.scrollHeight - container.clientHeight, behavior: "smooth" });
         return;
       }
 
       if (e.key === "ArrowDown" || e.key === "PageDown") {
         e.preventDefault();
-        const c = containerRef.current;
-        if (!c) return;
+        const container = containerRef.current;
+        if (!container) return;
         const isLast = idx >= sectionIds.length - 1;
         if (isLast) {
-          c.scrollTo({ top: c.scrollHeight - c.clientHeight, behavior: "smooth" });
+          container.scrollTo({ top: container.scrollHeight - container.clientHeight, behavior: "smooth" });
         } else {
           const nextId = sectionIds[idx + 1];
-          scrollToEl(document.getElementById(nextId));
+          const nextElement = document.getElementById(nextId);
+          if (nextElement) scrollToEl(nextElement);
         }
         return;
       }
@@ -53,7 +54,8 @@ export default function useKeyboardNav({
       if (e.key === "ArrowUp" || e.key === "PageUp") {
         e.preventDefault();
         const prevId = sectionIds[Math.max(idx - 1, 0)];
-        scrollToEl(document.getElementById(prevId));
+        const prevElement = document.getElementById(prevId);
+        if (prevElement) scrollToEl(prevElement);
         return;
       }
     };
