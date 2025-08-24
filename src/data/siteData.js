@@ -6,7 +6,6 @@ export const projects = [
     stack: ["PyTorch", "Gradio", "Docker", "Hugging Face"],
     links: [
       { href: "https://github.com/Nebil1/plastic-pollution-classifier", label: "Code" },
-      { href: "https://huggingface.co/spaces/placeholder/plastic-classifier", label: "Demo" },
     ],
   },
   {

@@ -2,7 +2,16 @@ import Section from "../components/layout/Section.jsx";
 import Card from "../components/ui/Card.jsx";
 import Button from "../components/ui/Button.jsx";
 
-export default function Certs({ certs }) {
+const isValidUrl = (url) => {
+  try {
+    const urlObj = new URL(url);
+    return ['http:', 'https:'].includes(urlObj.protocol);
+  } catch {
+    return false;
+  }
+};
+
+export default function Certs({ certs = [] }) {
   return (
     <Section id="certs" title="Certifications">
       <div className="snap-start grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -12,7 +21,7 @@ export default function Certs({ certs }) {
             <div className="flex items-center justify-between gap-3">
               <div className="text-sm font-medium">{c.name}</div>
 
-              {c.link ? (
+              {c.link && isValidUrl(c.link) ? (
                 <a href={c.link} target="_blank" rel="noreferrer">
                   <Button className="bg-indigo-600 text-white hover:brightness-110 focus:ring-indigo-500 px-3 py-1 text-xs">
                     View
