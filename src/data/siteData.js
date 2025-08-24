@@ -1,6 +1,7 @@
 export const projects = [
   {
     title: "Plastic Pollution Classifier",
+    icon: "IconRecycle",
     blurb:
       "CNN that classifies plastic types from images; trained with data augmentation and deployed as a Dockerized Gradio app.",
     stack: ["PyTorch", "Gradio", "Docker", "Hugging Face"],
@@ -9,18 +10,20 @@ export const projects = [
     ],
   },
   {
-    title: "AI Threat Intel (Sentiment x CTI)",
+    title: "Digital Signal Processing Voice Recognition",
+    icon: "IconMicrophone",
     blurb:
-      "Pipeline that ranks emerging threats by cross-referencing CTI feeds with sentiment and anomaly signals.",
-    stack: ["Python", "spaCy", "Azure", "n8n"],
-    links: [{ href: "https://github.com/Nebil1", label: "Code" }],
+      "Advanced voice recognition system using digital signal processing techniques for real-time audio analysis and speech detection.",
+    stack: ["Python", "NumPy", "pyttsx3", "Matplotlib"],
+    links: [{ href: "https://github.com/Nebil1/Digital-signal-processing-Voice-recognition", label: "Code" }],
   },
   {
-    title: "Cleanroom Particle Simulator",
+    title: "Gebeya E-Commerce Web App",
+    icon: "IconShoppingCart",
     blurb:
-      "MATLAB model for airflow & particle concentration across a 10×10 grid; validates against ISO-5 targets.",
-    stack: ["MATLAB", "NumPy", "Plotly"],
-    links: [{ href: "https://github.com/Nebil1", label: "Docs" }],
+      "Full-stack e-commerce platform with user authentication, product management, and secure payment integration.",
+    stack: ["C#", "ASP.NET", "SQL Server", "Bootstrap", "Javascript"],
+    links: [{ href: "https://github.com/Nebil1/E-Commerce", label: "Code" }],
   },
 ];
 
