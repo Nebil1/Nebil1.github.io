@@ -1,6 +1,7 @@
 import Section from "../components/layout/Section.jsx";
 import Card from "../components/ui/Card.jsx";
 import Button from "../components/ui/Button.jsx";
+import { IconCertificate } from "@tabler/icons-react";
 
 const isValidUrl = (url) => {
   try {
@@ -13,7 +14,7 @@ const isValidUrl = (url) => {
 
 export default function Certs({ certs = [] }) {
   return (
-    <Section id="certs" title="Certifications">
+    <Section id="certs" title="Certifications" icon={IconCertificate}>
       <div className="snap-start grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {certs.map((c) => (
           <Card key={c.name} className="p-5">

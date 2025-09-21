@@ -6,7 +6,7 @@ import { IconArrowUp } from "@tabler/icons-react";
 import useDarkMode from "./hooks/useDarkMode.js";
 import useKeyboardNav from "./hooks/useKeyboardNav.js";
 
-import { projects, skills, certs /*, featured*/ } from "./data/siteData.js";
+import { projects, skills, certs, websites /*, featured*/ } from "./data/siteData.js";
 
 import Aurora from "./components/layout/Aurora.jsx";
 import Navbar from "./components/layout/Navbar.jsx";
@@ -15,6 +15,7 @@ import Footer from "./components/layout/Footer.jsx";
 import Hero from "./sections/Hero.jsx";
 // import FeaturedStrip from "./sections/FeaturedStrip.jsx";
 import Projects from "./sections/Projects.jsx";
+
 import Skills from "./sections/Skills.jsx";
 import Experience from "./sections/Experience.jsx";
 import Certs from "./sections/Certs.jsx";
@@ -279,7 +280,7 @@ export default function App() {
       </main>
 
       {/* Sections (ensure each uses 'snap-start' at its root) */}
-      <Projects projects={projects} />
+      <Projects projects={projects} websites={websites} />
       <Skills skills={skills} />
       <Experience />
       <Certs certs={certs} />

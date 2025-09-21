@@ -1,11 +1,11 @@
 import Section from "../components/layout/Section.jsx";
 import Card from "../components/ui/Card.jsx";
 import Button from "../components/ui/Button.jsx";
-import { IconMail, IconBrandGithub, IconBrandLinkedin } from "@tabler/icons-react";
+import { IconMail, IconBrandGithub, IconBrandLinkedin, IconMessageCircle } from "@tabler/icons-react";
 
 export default function Contact() {
   return (
-    <Section id="contact" title="Get in touch" subtitle="Open to AI/ML and cloud security roles, internships, and collaborations.">
+    <Section id="contact" title="Get in touch" subtitle="Open to AI/ML and cloud security roles, internships, and collaborations." icon={IconMessageCircle}>
       <Card className="p-6 snap-start">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
           <div>

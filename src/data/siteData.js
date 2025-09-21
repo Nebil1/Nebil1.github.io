@@ -28,10 +28,11 @@ export const projects = [
 ];
 
 export const skills = {
-  "AI & ML": ["PyTorch","TensorFlow","scikit-learn","OpenCV","Hugging Face","LangChain"],
-  "Cloud & Security": ["AWS","Azure","Docker","Kubernetes","Nginx","IAM","SIEM","Threat Modeling"],
-  "Data & MLOps": ["Pandas","Airflow","Mlflow","Weights & Biases","PostgreSQL","Spark"],
-  Languages: ["Python","TypeScript","Bash","MATLAB"],
+  "Frontend": ["React","HTML","CSS","Bootstrap","JavaScript","TypeScript"],
+  "Backend": ["ASP.NET","Spring Boot","Django","REST APIs"],
+  "Databases": ["SQL Server","MySQL","PostgreSQL","Firebase"],
+  "Cloud/DevOps": ["Azure","Docker","Web Apps","RBAC","CI/CD"],
+  "AI/ML": ["PyTorch","TensorFlow","NLP"],
 };
 
 export const certs = [
@@ -41,6 +42,15 @@ export const certs = [
   { name: "IBM Python for Data Science, AI & Development", year: "2024", link: "https://coursera.org/share/06a51f143eb881dae965d3bb8c759e47" },
   { name: "ALX Software Engineering Program", year: "2023", link: "https://savanna.alxafrica.com/certificates/8CpRyXGh3J" },
   { name: "Cisco Network Security", year: "2023", link: "https://coursera.org/share/c778c96d41fa9264c09c5b7f1c3fff90" },
+];
+
+export const websites = [
+  {
+    title: "Ethiopian Space Science Society",
+    url: "https://ethiosss.org",
+    preview: "/website-previews/ethiosss.jpg",
+    description: "Official website for the Ethiopian Space Science Society, promoting space science education and research in Ethiopia."
+  },
 ];
 
 export const featured = [

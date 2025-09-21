@@ -1,5 +1,6 @@
 import Section from "../components/layout/Section.jsx";
 import Card from "../components/ui/Card.jsx";
+import { IconBriefcase } from "@tabler/icons-react";
 
 export default function Experience() {
   const jobs = [
@@ -24,7 +25,7 @@ export default function Experience() {
   ];
 
   return (
-    <Section id="experience" title="Experience" subtitle="A snapshot of roles and impact. Full history available on request.">
+    <Section id="experience" title="Experience" subtitle="A snapshot of roles and impact. Full history available on request." icon={IconBriefcase}>
       <div className="grid gap-6 md:grid-cols-2 snap-start">
         {jobs.map((job) => (
           <Card key={job.role} className="p-6">
