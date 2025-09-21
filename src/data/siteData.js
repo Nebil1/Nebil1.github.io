@@ -47,7 +47,7 @@ export const certs = [
 export const websites = [
   {
     title: "Ethiopian Space Science Society",
-    url: "https://ethiosss.org",
+    url: "https://membership.ethiosss.org/",
     preview: "/website-previews/ethiosss.jpg",
     description: "Official website for the Ethiopian Space Science Society, promoting space science education and research in Ethiopia."
   },
