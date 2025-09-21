@@ -18,7 +18,7 @@ export default function Projects({ projects, websites = [] }) {
               <h3 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">{site.title}</h3>
             </div>
             <p className="mb-4 text-sm text-emerald-700 dark:text-emerald-300">{site.description}</p>
-            <div className="mt-auto">
+            <div className="mt-auto pt-4">
               <a href={site.url} target="_blank" rel="noopener noreferrer">
                 <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white">
                   Visit Live Site <IconExternalLink className="h-4 w-4" />
