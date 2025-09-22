@@ -5,21 +5,23 @@ import { IconBriefcase } from "@tabler/icons-react";
 export default function Experience() {
   const jobs = [
     {
-      role: "Web Security Analyst · INSA",
-      when: "2025 – Present",
+      role: "Software Engineer · Ethiopian Space Science Society (ESSS)",
+      when: "2023 – 2025",
       bullets: [
-        "Led vulnerability assessments on cloud-hosted apps, prioritizing findings with exploitability scoring.",
-        "Built n8n automations to correlate SIEM alerts with OSINT threat intel and phishing kits.",
-        "Partnered with dev teams to implement security headers, rate limiting, and token hardening.",
+        "Designed and delivered an ERP-style automation system integrating Google Apps Script (backend), React.js (frontend), and Google Workspace services",
+        "Automated letter generation, bulk email, contract workflows, and PDF handling, reducing document processing time by 40%",
+        "Implemented role-based access control (RBAC) with Google OAuth 2.0 for secure user authentication",
+        "Modernized ESSS operations by eliminating manual workflows and improving efficiency across 20+ staff members",
       ],
     },
     {
-      role: "AI Engineer (Projects)",
-      when: "2024 – 2025",
+      role: "Software Engineering Intern · Ethiopian Airlines",
+      when: "2022",
       bullets: [
-        "Trained CV models for plastic classification; deployed as containerized web apps with CI/CD.",
-        "Implemented data curation & labeling workflows; improved F1 by 8–12% across classes.",
-        "Hardened inference endpoints with AuthN/Z, request validation, and abuse monitoring.",
+        "Developed backend automation and dashboards for project management tools",
+        "Collaborated in Agile sprints and practiced secure software development life cycle (SDLC)",
+        "Delivered production-ready modules adopted by the software team for internal operations",
+        "Helped reduce system latency by ~15%, improving user experience for internal teams",
       ],
     },
   ];

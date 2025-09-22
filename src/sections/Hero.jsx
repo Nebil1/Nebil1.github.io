@@ -189,11 +189,6 @@ export default function Hero({ mx, my, reduceMotion }) {
             </Button>
           </a>
         </motion.div>
-
-        {/* <div className="mt-6 flex flex-wrap gap-2 opacity-90">
-          <Badge><Cloud className="mr-1 inline h-3 w-3" /> MLOps on Cloud</Badge>
-          <Badge><Shield className="mr-1 inline h-3 w-3" /> Security by Design</Badge>
-        </div> */}
       </div>
 
       <div style={{ perspective: 1000 }}>
@@ -206,10 +201,10 @@ export default function Hero({ mx, my, reduceMotion }) {
               <p className="text-sm text-slate-600 dark:text-white/70">What I’m doing and open to right now.</p>
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                 {[
-                  ["Role Focus", "Full-Stack Development • AI/ML • Cloud Security"],
-                  ["Core Stack", "React • ASP.NET • Python • SQL • Azure/AWS"],
-                  ["Open To", "Full-time • Internships • Remote/Hybrid"],
-                  ["Beyond the Code", "Tech builder • Football fan • Lifelong learner"],
+                  ["Role Focus", "Software Engineer • Web Security • Full-Stack"],
+                  ["Core Stack", "ASP.NET • Python • React • Azure"],
+                  ["Open To", "Full-time • Remote/Hybrid"],
+                  ["Beyond the Code", "Football fan • Coffee • Travel"],
                 ].map(([k, v]) => (
                   <div key={k} className="rounded-xl border border-slate-200 bg-slate-50 p-3 transition hover:border-indigo-300 hover:bg-slate-100 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
                     <div className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-white/60">{k}</div>

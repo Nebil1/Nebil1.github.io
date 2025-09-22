@@ -28,11 +28,11 @@ export const projects = [
 ];
 
 export const skills = {
-  "Frontend": ["React","HTML","CSS","Bootstrap","JavaScript","TypeScript"],
-  "Backend": ["ASP.NET","Spring Boot","Django","REST APIs"],
-  "Databases": ["SQL Server","MySQL","PostgreSQL","Firebase"],
-  "Cloud/DevOps": ["Azure","Docker","Web Apps","RBAC","CI/CD"],
-  "AI/ML": ["PyTorch","TensorFlow","NLP"],
+  "Languages": ["Python","C#","JavaScript","TypeScript","SQL"],
+  "Frameworks": ["ASP.NET","FastAPI","Django","REST","TailwindCSS"],
+  "Databases": ["SQL Server","MySQL","MongoDB"],
+  "Cloud/DevOps": ["Azure","Docker","GitHub Actions"],
+  "Other": ["REST APIs","OAuth2/JWT","CI/CD","Testing (PyTest)"],
 };
 
 export const certs = [

@@ -5,7 +5,7 @@ import { IconMail, IconBrandGithub, IconBrandLinkedin, IconMessageCircle } from 
 
 export default function Contact() {
   return (
-    <Section id="contact" title="Get in touch" subtitle="Open to AI/ML and cloud security roles, internships, and collaborations." icon={IconMessageCircle}>
+    <Section id="contact" title="Get in touch" subtitle="Open to software engineering opportunities and collaborations." icon={IconMessageCircle}>
       <Card className="p-6 snap-start">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
           <div>
@@ -13,7 +13,7 @@ export default function Contact() {
             <p className="text-sm text-slate-600 dark:text-white/70">Based in Addis Ababa · Open to remote/hybrid</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
-            <a href="mailto:nebilyk@gmail.com" className="w-full sm:w-auto">
+            <a href="mailto:nebilkeno@gmail.com" className="w-full sm:w-auto">
               <Button variant="default" className="w-full sm:w-auto justify-center">
                 <IconMail className="h-4 w-4" /> Email
               </Button>
