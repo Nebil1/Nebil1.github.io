@@ -81,7 +81,7 @@ export default function Navbar({ scrolled, dark, setDark, active }) {
           </MagneticWrapper>
         
           <a
-            href="https://drive.google.com/file/d/1Fx1kNVYCJXgas7DEsSgnBf4YC1nUV9FZ/view?usp=sharing"
+            href="https://drive.google.com/file/d/1dvWlbz4bIRXccdb_nB0YnBO-hLy-soG5/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="touch-manipulation"

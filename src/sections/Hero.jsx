@@ -155,7 +155,7 @@ export default function Hero({ mx, my, reduceMotion }) {
               damping: 12
             }}
             className="text-emerald-600 dark:text-emerald-400"
-          >secure, scalable</motion.span> web applications using <motion.span
+          >secure & scalable</motion.span> web applications using <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ 
@@ -167,9 +167,8 @@ export default function Hero({ mx, my, reduceMotion }) {
               damping: 18
             }}
             className="text-purple-600 dark:text-purple-400 font-semibold"
-          >full-stack development and AI/ML technologies</motion.span>.
+          >Python, ASP.NET, and cloud technologies</motion.span>.
         </motion.h1>
-
 
 
         <motion.div 
