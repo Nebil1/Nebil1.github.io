@@ -11,9 +11,13 @@ export default function Contact() {
           <div>
             <h3 className="text-base font-semibold">Let’s build something reliable together.</h3>
             <p className="text-sm text-slate-600 dark:text-white/70">Based in Addis Ababa · Open to remote/hybrid</p>
+            <div className="flex items-center gap-2 mt-2">
+              <IconMail className="h-4 w-4 text-slate-500 dark:text-white/60" />
+              <span className="text-sm font-mono text-slate-700 dark:text-white/80">contact@nebilkeno.me</span>
+            </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
-            <a href="mailto:nebilkeno@gmail.com" className="w-full sm:w-auto">
+            <a href="mailto:contact@nebilkeno.me" className="w-full sm:w-auto">
               <Button variant="default" className="w-full sm:w-auto justify-center">
                 <IconMail className="h-4 w-4" /> Email
               </Button>
