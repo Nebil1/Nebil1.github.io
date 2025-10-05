@@ -79,18 +79,6 @@ export default function Navbar({ scrolled, dark, setDark, active }) {
               {dark ? <IconSun className="h-4 w-4" /> : <IconMoon className="h-4 w-4" />}
             </Button>
           </MagneticWrapper>
-        
-          <a
-            href="https://drive.google.com/file/d/1dvWlbz4bIRXccdb_nB0YnBO-hLy-soG5/view?usp=sharing"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="touch-manipulation"
-          >
-            <Button variant="default" className="text-xs sm:text-sm px-3 sm:px-4 py-2">
-              <span className="hidden sm:inline">Résumé</span>
-              <span className="sm:hidden">CV</span>
-            </Button>
-          </a>
         </div>
       </div>
 

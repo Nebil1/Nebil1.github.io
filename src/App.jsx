@@ -18,6 +18,7 @@ import Projects from "./sections/Projects.jsx";
 
 import Skills from "./sections/Skills.jsx";
 import Experience from "./sections/Experience.jsx";
+import Coding from "./sections/Coding.jsx";
 import Certs from "./sections/Certs.jsx";
 import Contact from "./sections/Contact.jsx";
 
@@ -96,7 +97,7 @@ export default function App() {
   );
 
   // Section IDs (order matters)
-  const sectionIds = ["home", "projects", "skills", "experience", "certs", "contact", "footer"];
+  const sectionIds = ["home", "projects", "skills", "experience", "certs", "coding", "contact", "footer"];
 
   // Scroll helpers for keyboard + programmatic jumps
   const scrollToEl = (el) => {
@@ -284,6 +285,7 @@ export default function App() {
       <Skills skills={skills} />
       <Experience />
       <Certs certs={certs} />
+      <Coding />
       <Contact />
 
       {/* Footer */}
