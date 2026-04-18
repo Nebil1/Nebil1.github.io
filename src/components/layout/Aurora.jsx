@@ -14,7 +14,7 @@ export default function Aurora({ mx, my, reduceMotion = false }) {
   useEffect(() => {
     if (!reduceMotion) return;
     x1.set(0); y1.set(0); x2.set(0); y2.set(0); x3.set(0); y3.set(0);
-  }, [reduceMotion]);
+  }, [reduceMotion, x1, y1, x2, y2, x3, y3]);
 
   return (
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">

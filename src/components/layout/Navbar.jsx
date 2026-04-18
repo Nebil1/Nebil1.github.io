@@ -1,112 +1,126 @@
-// src/components/layout/Navbar.jsx
-import { useState } from "react";
-import Button from "../ui/Button.jsx";
-import MagneticWrapper from "../ui/MagneticWrapper.jsx";
-import Logo from "../Logo.jsx";
-import { IconMoon, IconSun, IconMenu2, IconX } from "@tabler/icons-react";
+import React, { useState, useEffect } from "react";
+import { IconMenu2, IconX } from "@tabler/icons-react";
 
 const navItems = [
-  { id: "home", label: "Home" },
   { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },
-  { id: "experience", label: "Experience" },
   { id: "certs", label: "Certificates" },
   { id: "contact", label: "Contact" },
 ];
 
-export default function Navbar({ scrolled, dark, setDark, active }) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+export default function Navbar() {
+  const [scrolledToTop, setScrolledToTop] = useState(true);
+  const [scrollDirection, setScrollDirection] = useState("up");
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY < 50) {
+        setScrolledToTop(true);
+        setScrollDirection("up");
+      } else {
+        setScrolledToTop(false);
+        if (currentScrollY > lastScrollY) {
+          setScrollDirection("down");
+        } else {
+          setScrollDirection("up");
+        }
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   return (
-    <header className="sticky top-0 z-50 mx-auto max-w-7xl px-2 sm:px-4 pt-2 sm:pt-3">
-      <div
-        className={`flex h-12 sm:h-14 md:h-16 items-center justify-between rounded-xl sm:rounded-2xl border px-3 sm:px-4 transition-shadow duration-300
-                    border-slate-200 bg-white/55 backdrop-blur-md
-                    dark:border-white/10 dark:bg-slate-950/60 dark:backdrop-blur-sm
-                    ${scrolled ? "shadow-lg" : "shadow-sm"}`}
-      >
-        {/* Left side - Menu button + Logo */}
-        <div className="flex items-center gap-2">
-          {/* Mobile menu button - moved to left */}
-          <Button
-            variant="secondary"
-            className="md:hidden p-2 touch-manipulation"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle mobile menu"
-          >
-            {mobileMenuOpen ? <IconX className="h-4 w-4" /> : <IconMenu2 className="h-4 w-4" />}
-          </Button>
-          
-          <a href="#home" className="group inline-flex items-center gap-1 sm:gap-2 touch-manipulation">
-            <div className="rounded-lg sm:rounded-xl border border-slate-200 bg-slate-100 p-0.5 sm:p-1 transition group-hover:scale-105 dark:border-white/10 dark:bg-white/5">
-              <Logo />
-            </div>
-            <span className="text-xs sm:text-sm font-semibold tracking-wide opacity-90 transition group-hover:opacity-100 hidden xs:inline">
-              Nebil Yisehak
-            </span>
-          </a>
-        </div>
-
-        {/* Desktop navigation */}
-        <nav className="hidden items-center gap-3 sm:gap-4 lg:gap-6 text-xs sm:text-sm md:flex" role="navigation" aria-label="Primary">
-          {navItems.map(({ id, label }) => {
-            const isActive = active === id; 
-            return (
-              <a
-                key={id}
-                href={`#${id}`}
-                aria-current={isActive ? "page" : undefined}
-                className={`transition underline-offset-4 sm:underline-offset-8 touch-manipulation py-2 ${
-                  isActive ? "opacity-100 underline" : "opacity-75 hover:opacity-100 hover:underline"
-                }`}
-              >
-                {label}
-              </a>
-            );
-          })}
-        </nav>
-
-        {/* Right side - Theme toggle + Resume */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          <MagneticWrapper>
-            <Button
-              aria-label="Toggle dark mode"
-              variant="secondary"
-              className="p-2 sm:p-2.5 touch-manipulation"
-              onClick={() => setDark((d) => !d)}
-              title="Toggle dark mode"
-            >
-              {dark ? <IconSun className="h-4 w-4" /> : <IconMoon className="h-4 w-4" />}
-            </Button>
-          </MagneticWrapper>
-        </div>
+    <header
+      className={`fixed top-0 z-[100] w-full px-6 md:px-10 lg:px-12 flex h-[70px] md:h-[100px] items-center justify-between transition-all duration-300
+        ${scrolledToTop ? "bg-transparent translate-y-0" : "bg-navy/85 backdrop-blur-md shadow-lg"}
+        ${!scrolledToTop && scrollDirection === "down" ? "-translate-y-full" : "translate-y-0"}
+      `}
+    >
+      <div className="z-[100]">
+        <a href="#hero" aria-label="home" className="text-teal hover:text-teal/80 transition-colors">
+          <svg id="logo" xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 84 96" className="w-10 h-10 fill-none stroke-teal stroke-[5px] stroke-linecap-round stroke-linejoin-round">
+            <title>Logo</title>
+            <g transform="translate(-8.000000, -2.000000)">
+              <g transform="translate(11.000000, 5.000000)">
+                <polygon id="Shape" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" points="39 0 0 22 0 67 39 90 78 68 78 23"></polygon>
+                <text x="39" y="55" fontSize="45" fontFamily="sans-serif" fill="currentColor" stroke="none" textAnchor="middle">N</text>
+              </g>
+            </g>
+          </svg>
+        </a>
       </div>
 
-      {/* Mobile menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden mt-2 rounded-xl border border-slate-200 bg-white/95 backdrop-blur-md p-4 shadow-lg dark:border-white/10 dark:bg-slate-950/95">
-          <nav className="flex flex-col gap-3" role="navigation" aria-label="Mobile">
-            {navItems.map(({ id, label }) => {
-              const isActive = active === id;
-              return (
+      <div className="hidden md:flex items-center gap-6">
+        <ol className="flex justify-between items-center p-0 m-0 list-none gap-6">
+          {navItems.map(({ id, label }, i) => (
+            <li key={i} className="relative text-[13px] text-slate-light">
+              <a href={`#${id}`} className="p-2 transition hover:text-teal font-mono tracking-wide">
+                <span className="text-teal mr-1.5">0{i + 1}.</span>
+                {label}
+              </a>
+            </li>
+          ))}
+        </ol>
+        <a
+          href="/resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-teal bg-transparent border border-teal rounded font-mono text-[13px] px-4 py-2 mt-0 transition-colors hover:bg-teal-tint"
+        >
+          Resume
+        </a>
+      </div>
+
+      <button
+        type="button"
+        className="md:hidden z-[110] inline-flex items-center justify-center text-teal p-2 rounded border border-teal/40 hover:bg-teal/10 transition-colors"
+        onClick={() => setMobileOpen((prev) => !prev)}
+        aria-label={mobileOpen ? "Close menu" : "Open menu"}
+        aria-expanded={mobileOpen}
+        aria-controls="mobile-nav"
+      >
+        {mobileOpen ? <IconX className="w-6 h-6" /> : <IconMenu2 className="w-6 h-6" />}
+      </button>
+
+      <div
+        id="mobile-nav"
+        className={`md:hidden fixed inset-0 bg-navy/95 backdrop-blur-md transition-opacity duration-300 ${
+          mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="h-full w-full flex flex-col items-center justify-center gap-8">
+          <ol className="flex flex-col items-center p-0 m-0 list-none gap-4">
+            {navItems.map(({ id, label }, i) => (
+              <li key={id} className="text-lg text-slate-light">
                 <a
-                  key={id}
                   href={`#${id}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  aria-current={isActive ? "page" : undefined}
-                  className={`py-2 px-3 rounded-lg transition touch-manipulation text-sm ${
-                    isActive 
-                      ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400" 
-                      : "hover:bg-slate-50 dark:hover:bg-white/5"
-                  }`}
+                  onClick={() => setMobileOpen(false)}
+                  className="p-2 transition hover:text-teal font-mono tracking-wide"
                 >
+                  <span className="text-teal mr-1.5">0{i + 1}.</span>
                   {label}
                 </a>
-              );
-            })}
-          </nav>
+              </li>
+            ))}
+          </ol>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-teal bg-transparent border border-teal rounded font-mono text-[14px] px-5 py-3 transition-colors hover:bg-teal-tint"
+            onClick={() => setMobileOpen(false)}
+          >
+            Resume
+          </a>
         </div>
-      )}
+      </div>
     </header>
   );
 }

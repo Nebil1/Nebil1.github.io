@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 export default function ScrollIndicator({ sections, activeSection, onSectionClick }) {
   return (
     <div className="fixed right-6 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-3">
-      {sections.map((section, index) => (
+      {sections.map((section) => (
         <motion.button
           key={section.id}
           onClick={() => onSectionClick(section.id)}

@@ -4,6 +4,8 @@ export const projects = [
     icon: "IconRecycle",
     blurb:
       "CNN that classifies plastic types from images; trained with data augmentation and deployed as a Dockerized Gradio app.",
+    impact:
+      "Improved material sorting speed with fast inference and a reproducible deployment pipeline.",
     stack: ["PyTorch", "Gradio", "Docker", "Hugging Face"],
     links: [
       { href: "https://github.com/Nebil1/plastic-pollution-classifier", label: "Code" },
@@ -14,6 +16,8 @@ export const projects = [
     icon: "IconMicrophone",
     blurb:
       "Advanced voice recognition system using digital signal processing techniques for real-time audio analysis and speech detection.",
+    impact:
+      "Reduced background-noise impact through DSP feature extraction and robust speech detection logic.",
     stack: ["Python", "NumPy", "pyttsx3", "Matplotlib"],
     links: [{ href: "https://github.com/Nebil1/Digital-signal-processing-Voice-recognition", label: "Code" }],
   },
@@ -22,6 +26,8 @@ export const projects = [
     icon: "IconShoppingCart",
     blurb:
       "Full-stack e-commerce platform with user authentication, product management, and secure payment integration.",
+    impact:
+      "Delivered an end-to-end commerce workflow with secure auth, product operations, and scalable database design.",
     stack: ["C#", "ASP.NET", "SQL Server", "Bootstrap", "Javascript"],
     links: [{ href: "https://github.com/Nebil1/E-Commerce", label: "Code" }],
   },
@@ -49,7 +55,9 @@ export const websites = [
     title: "Ethiopian Space Science Society",
     url: "https://membership.ethiosss.org/",
     preview: "/website-previews/ethiosss.jpg",
-    description: "Official website for the Ethiopian Space Science Society, promoting space science education and research in Ethiopia."
+    description: "Official website for the Ethiopian Space Science Society, promoting space science education and research in Ethiopia.",
+    impact:
+      "Launched a production membership experience with improved organization visibility and digital outreach."
   },
 ];
 
@@ -60,3 +68,9 @@ export const featured = [
   { label: "ALX / Holberton" },
   { label: "Hugging Face" },
 ];
+
+export const contact = {
+  email: "nebilyisehakk@gmail.com",
+  github: "https://github.com/Nebil1",
+  linkedin: "https://www.linkedin.com/in/nebil-yisehak/",
+};
