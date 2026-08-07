@@ -1,48 +1,78 @@
-import React from 'react';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { IconChevronDown } from "@tabler/icons-react";
 
 export default function Skills({ skills }) {
+  const layers = Object.keys(skills || {});
+  const [openIndex, setOpenIndex] = useState(0);
+
   return (
     <section id="skills" className="section-padding">
       <h2 className="numbered-heading">
-        <span className="text-teal font-mono text-[clamp(16px,3vw,20px)] mr-[10px] font-normal bottom-1 tracking-wide relative">
+        <span className="relative bottom-1 mr-[10px] font-mono text-[clamp(16px,3vw,20px)] font-normal tracking-wide text-teal">
           02.
         </span>
-        About Me
+        Skill Stack
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-10 mt-10">
-        <div className="md:col-span-3 text-slate text-[18px]">
-          <p className="mb-4">
-            Hello! My name is Nebil and I enjoy creating things that live on the internet. 
-            My interest in software engineering started back in 2020 and has evolved into a passion for building robust full-stack applications and diving deep into Cloud computing and Artificial Intelligence.
-          </p>
-          <p className="mb-4">
-            Here are a few technologies I've been working with recently:
-          </p>
-          <div className="grid grid-cols-2 gap-4 mt-5">
-            {Object.keys(skills || {}).map((category, i) => (
-              <div key={i} className="mb-4">
-                <h3 className="text-teal font-mono text-[14px] mb-2">{category}</h3>
-                <ul className="grid grid-cols-1 gap-1 m-0 p-0 overflow-hidden list-none">
-                  {skills[category].map((skill, j) => (
-                    <li key={j} className="relative mb-2 pl-5 font-mono text-[13px] text-slate-light leading-tight before:content-['▹'] before:absolute before:left-0 before:text-teal before:text-[14px] before:leading-[12px]">
-                      {skill}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="md:col-span-2 relative max-w-[300px] mx-auto md:w-full mt-10 md:mt-0">
-          <div className="relative group rounded bg-teal w-full aspect-square">
-             <div className="absolute w-full h-full inset-0 border-2 border-teal rounded translate-x-5 translate-y-5 transition-transform group-hover:translate-x-4 group-hover:translate-y-4 -z-10"></div>
-             <div className="w-full aspect-square bg-navy-light mix-blend-multiply opacity-50 group-hover:opacity-0 transition-opacity rounded absolute top-0 left-0 z-20"></div>
-             {/* Using a placeholder since user may not have an image set */}
-             <div className="w-full h-full bg-slate-lightest rounded absolute top-0 left-0 flex items-center justify-center font-mono text-navy font-bold text-4xl">
-                NY
-             </div>
-          </div>
-        </div>
+
+      <p className="mb-8 max-w-2xl text-[17px] text-slate">
+        The skills below are organized like a network stack &mdash; from physical
+        infrastructure up through automation and cloud tooling. Expand a layer to
+        see what's inside.
+      </p>
+
+      <div className="flex max-w-3xl flex-col divide-y divide-navy-lightest overflow-hidden rounded border border-navy-lightest">
+        {layers.map((category, i) => {
+          const isOpen = openIndex === i;
+          const layerNum = String(layers.length - i).padStart(2, "0");
+          return (
+            <div key={category} className="bg-navy-light/40">
+              <button
+                type="button"
+                onClick={() => setOpenIndex(isOpen ? -1 : i)}
+                aria-expanded={isOpen}
+                className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-navy-light"
+              >
+                <span className="flex items-center gap-3">
+                  <span className="font-mono text-[11px] tracking-wide text-teal/70">L{layerNum}</span>
+                  <span className="font-mono text-[15px] font-medium tracking-wide text-slate-lightest">
+                    {category}
+                  </span>
+                </span>
+                <span className="flex items-center gap-3">
+                  <span className="hidden font-mono text-[11px] text-slate sm:inline">
+                    {skills[category].length} skills
+                  </span>
+                  <IconChevronDown
+                    className={`h-4 w-4 text-teal transition-transform ${isOpen ? "rotate-180" : ""}`}
+                  />
+                </span>
+              </button>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="flex flex-wrap gap-2 px-5 pb-5 pt-1">
+                      {skills[category].map((skill) => (
+                        <span
+                          key={skill}
+                          className="rounded border border-teal/20 bg-teal/5 px-2.5 py-1 font-mono text-[12px] tracking-wide text-teal"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

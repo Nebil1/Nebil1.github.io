@@ -1,5 +1,6 @@
 import React from 'react';
-import { IconExternalLink, IconCertificate } from '@tabler/icons-react';
+import { IconExternalLink } from '@tabler/icons-react';
+import LinkStatus from '../components/ui/LinkStatus.jsx';
 
 export default function Certs({ certs }) {
   return (
@@ -10,22 +11,35 @@ export default function Certs({ certs }) {
         </span>
         Certifications
       </h2>
-      <ul className="m-0 p-0 list-none mt-10">
+
+      <p className="mb-8 text-[15px] font-mono text-slate">
+        <span className="text-link">●</span> verified &nbsp;&mdash;&nbsp; port status of completed credentials
+      </p>
+
+      <div className="rounded border border-navy-lightest overflow-hidden">
         {certs?.map((c, i) => (
-          <li key={i} className="mb-5 p-5 bg-navy-light rounded transition-transform hover:-translate-y-1 shadow-[0_10px_30px_-15px_rgba(2,12,27,0.7)] group">
-            <a href={c.link} target="_blank" rel="noreferrer" className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <IconCertificate className="w-6 h-6 text-teal stroke-1" />
-                <span className="text-slate-lightest text-[16px] md:text-[18px] font-semibold group-hover:text-teal transition-colors">{c.name}</span>
-              </div>
-              <div className="flex items-center gap-4">
-                <span className="text-slate font-mono text-sm hidden md:inline">{c.year}</span>
-                <IconExternalLink className="w-5 h-5 text-slate-light group-hover:text-teal transition-colors" />
-              </div>
-            </a>
-          </li>
+          <a
+            key={i}
+            href={c.link}
+            target="_blank"
+            rel="noreferrer"
+            className={`group flex items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-navy-light ${
+              i !== certs.length - 1 ? "border-b border-navy-lightest" : ""
+            } ${i % 2 === 0 ? "bg-navy-light/30" : ""}`}
+          >
+            <div className="flex min-w-0 items-center gap-4">
+              <LinkStatus active label={null} />
+              <span className="truncate text-[15px] md:text-[17px] font-semibold text-slate-lightest transition-colors group-hover:text-teal">
+                {c.name}
+              </span>
+            </div>
+            <div className="flex shrink-0 items-center gap-4">
+              <span className="hidden font-mono text-sm text-slate md:inline">{c.year}</span>
+              <IconExternalLink className="h-5 w-5 text-slate-light transition-colors group-hover:text-teal" />
+            </div>
+          </a>
         ))}
-      </ul>
+      </div>
     </section>
   );
 }
