@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { IconMenu2, IconX } from "@tabler/icons-react";
+import { IconMenu2, IconX, IconBrandLinkedin } from "@tabler/icons-react";
+import { contact } from "../../data/siteData.js";
 
 const navItems = [
   { id: "projects", label: "Projects" },
@@ -44,16 +45,9 @@ export default function Navbar() {
       `}
     >
       <div className="z-[100]">
-        <a href="#hero" aria-label="home" className="text-teal hover:text-teal/80 transition-colors">
-          <svg id="logo" xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 84 96" className="w-10 h-10 fill-none stroke-teal stroke-[5px] stroke-linecap-round stroke-linejoin-round">
-            <title>Logo</title>
-            <g transform="translate(-8.000000, -2.000000)">
-              <g transform="translate(11.000000, 5.000000)">
-                <polygon id="Shape" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" points="39 0 0 22 0 67 39 90 78 68 78 23"></polygon>
-                <text x="39" y="55" fontSize="45" fontFamily="sans-serif" fill="currentColor" stroke="none" textAnchor="middle">N</text>
-              </g>
-            </g>
-          </svg>
+        <a href="#hero" aria-label="home" className="flex items-center gap-2 text-teal transition-colors hover:text-teal/80">
+          <span className="font-mono text-xl font-bold tracking-tight">&lt;NK/&gt;</span>
+          <span className="hidden font-mono text-[13px] tracking-wide text-slate-light sm:inline">nebil@network<span className="text-teal">:~$</span></span>
         </a>
       </div>
 
@@ -69,18 +63,19 @@ export default function Navbar() {
           ))}
         </ol>
         <a
-          href="/resume.pdf"
+          href={contact.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-teal bg-transparent border border-teal rounded font-mono text-[13px] px-4 py-2 mt-0 transition-colors hover:bg-teal-tint"
+          className="flex items-center gap-2 rounded bg-teal px-4 py-2 mt-0 font-mono text-[13px] font-medium text-navy transition-colors hover:bg-teal/90"
         >
-          Resume
+          <IconBrandLinkedin className="h-4 w-4" />
+          Connect with me
         </a>
       </div>
 
       <button
         type="button"
-        className="md:hidden z-[110] inline-flex items-center justify-center text-teal p-2 rounded border border-teal/40 hover:bg-teal/10 transition-colors"
+        className="md:hidden z-[110] inline-flex min-h-touch min-w-touch items-center justify-center text-teal p-2.5 rounded border border-teal/40 hover:bg-teal/10 transition-colors"
         onClick={() => setMobileOpen((prev) => !prev)}
         aria-label={mobileOpen ? "Close menu" : "Open menu"}
         aria-expanded={mobileOpen}
@@ -111,13 +106,14 @@ export default function Navbar() {
             ))}
           </ol>
           <a
-            href="/resume.pdf"
+            href={contact.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-teal bg-transparent border border-teal rounded font-mono text-[14px] px-5 py-3 transition-colors hover:bg-teal-tint"
+            className="flex items-center gap-2 rounded bg-teal px-5 py-3 font-mono text-[14px] font-medium text-navy transition-colors hover:bg-teal/90"
             onClick={() => setMobileOpen(false)}
           >
-            Resume
+            <IconBrandLinkedin className="h-4 w-4" />
+            Connect with me
           </a>
         </div>
       </div>
