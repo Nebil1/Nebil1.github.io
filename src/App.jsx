@@ -1,12 +1,14 @@
 // src/App.jsx
 import React from "react";
 
-import { projects, skills, certs, websites, contact } from "./data/siteData.js";
+import { projects, skills, certs, contact } from "./data/siteData.js";
 
 import Navbar from "./components/layout/Navbar.jsx";
 import Footer from "./components/layout/Footer.jsx";
 import SocialList from "./components/layout/SocialList.jsx";
 import EmailList from "./components/layout/EmailList.jsx";
+import NetworkMesh from "./components/layout/NetworkMesh.jsx";
+import TopologyRail from "./components/layout/TopologyRail.jsx";
 
 import Hero from "./sections/Hero.jsx";
 import Projects from "./sections/Projects.jsx";
@@ -18,14 +20,16 @@ import Contact from "./sections/Contact.jsx";
 export default function App() {
   return (
     <div className="flex flex-col min-h-screen bg-navy text-slate relative antialiased">
+      <NetworkMesh />
       <Navbar />
-      
+      <TopologyRail />
+
       <SocialList contact={contact} />
       <EmailList email={contact.email} />
-      
+
       <main id="content" className="mx-auto w-full max-w-[1600px] min-h-[100vh] px-[25px] sm:px-[50px] md:px-[100px] lg:px-[150px]">
         <Hero />
-        <Projects projects={projects} websites={websites} />
+        <Projects projects={projects} />
         <Skills skills={skills} />
         <Certs certs={certs} />
         <Coding />

@@ -6,9 +6,9 @@ export default {
     extend: {
       colors: {
         navy: {
-          DEFAULT: '#0a192f',
-          light: '#112240',
-          lightest: '#233554',
+          DEFAULT: '#070c16',
+          light: '#0d1526',
+          lightest: '#1b2740',
         },
         slate: {
           DEFAULT: '#8892b0',
@@ -19,7 +19,15 @@ export default {
         teal: {
           DEFAULT: '#64ffda',
           tint: 'rgba(100, 255, 218, 0.1)',
-        }
+        },
+        link: {
+          DEFAULT: '#3ee08a',
+          tint: 'rgba(62, 224, 138, 0.12)',
+        },
+        amber: {
+          DEFAULT: '#ffb454',
+          tint: 'rgba(255, 180, 84, 0.12)',
+        },
       },
       fontFamily: {
         sans: ['Inter', 'Calibre', 'San Francisco', 'SF Pro Text', '-apple-system', 'system-ui', 'sans-serif'],
@@ -29,6 +37,9 @@ export default {
         'xs': '475px',
       },
       minHeight: {
+        'touch': '44px',
+      },
+      minWidth: {
         'touch': '44px',
       }
     } 
