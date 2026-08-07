@@ -1,44 +1,42 @@
+// PLACEHOLDER CONTENT — replace with real labs/projects once details are provided.
 export const projects = [
   {
-    title: "Plastic Pollution Classifier",
-    icon: "IconRecycle",
+    title: "Enterprise Campus Network Design",
+    icon: "IconTopologyStar3",
     blurb:
-      "CNN that classifies plastic types from images; trained with data augmentation and deployed as a Dockerized Gradio app.",
+      "Multi-VLAN campus topology built in Packet Tracer/GNS3 with inter-VLAN routing, an OSPF backbone, and redundancy via STP and HSRP.",
     impact:
-      "Improved material sorting speed with fast inference and a reproducible deployment pipeline.",
-    stack: ["PyTorch", "Gradio", "Docker", "Hugging Face"],
-    links: [
-      { href: "https://github.com/Nebil1/plastic-pollution-classifier", label: "Code" },
-    ],
+      "Modeled a resilient campus network with segmented traffic and no single point of failure at the distribution layer.",
+    stack: ["VLAN", "OSPF", "STP", "HSRP", "Packet Tracer"],
+    links: [{ href: "https://github.com/Nebil1", label: "Code" }],
   },
   {
-    title: "Digital Signal Processing Voice Recognition",
-    icon: "IconMicrophone",
+    title: "Site-to-Site IPSec VPN Lab",
+    icon: "IconShieldLock",
     blurb:
-      "Advanced voice recognition system using digital signal processing techniques for real-time audio analysis and speech detection.",
+      "Two-site lab connecting a branch office to HQ over an IPSec VPN tunnel, with NAT, ACL-based filtering, and failover testing.",
     impact:
-      "Reduced background-noise impact through DSP feature extraction and robust speech detection logic.",
-    stack: ["Python", "NumPy", "pyttsx3", "Matplotlib"],
-    links: [{ href: "https://github.com/Nebil1/Digital-signal-processing-Voice-recognition", label: "Code" }],
+      "Verified secure, encrypted branch connectivity with tested failover under simulated link loss.",
+    stack: ["IPSec", "VPN", "NAT", "ACL", "Cisco IOS"],
+    links: [{ href: "https://github.com/Nebil1", label: "Code" }],
   },
   {
-    title: "Gebeya E-Commerce Web App",
-    icon: "IconShoppingCart",
+    title: "Network Automation Toolkit",
+    icon: "IconTerminal2",
     blurb:
-      "Full-stack e-commerce platform with user authentication, product management, and secure payment integration.",
+      "Python scripts using Netmiko to back up switch/router configs and audit VLAN assignments across a lab device fleet.",
     impact:
-      "Delivered an end-to-end commerce workflow with secure auth, product operations, and scalable database design.",
-    stack: ["C#", "ASP.NET", "SQL Server", "Bootstrap", "Javascript"],
-    links: [{ href: "https://github.com/Nebil1/E-Commerce", label: "Code" }],
+      "Cut manual config-backup and audit time by automating repetitive CLI tasks across multiple devices.",
+    stack: ["Python", "Netmiko", "Ansible", "Bash"],
+    links: [{ href: "https://github.com/Nebil1", label: "Code" }],
   },
 ];
 
 export const skills = {
-  "Languages": ["Python","C#","JavaScript","TypeScript","SQL"],
-  "Frameworks": ["ASP.NET","FastAPI","Django","REST","TailwindCSS"],
-  "Databases": ["SQL Server","MySQL","MongoDB"],
-  "Cloud/DevOps": ["Azure","Docker","GitHub Actions"],
-  "Other": ["REST APIs","OAuth2/JWT","CI/CD","Testing (PyTest)"],
+  "Routing & Switching": ["VLANs & Trunking", "OSPF", "BGP Fundamentals", "STP", "EtherChannel", "Subnetting/VLSM"],
+  "Security": ["ACLs", "Site-to-Site IPSec VPN", "Cisco ASA Basics", "NAT/PAT", "Network Hardening"],
+  "Cloud & Virtualization": ["Azure Virtual Network", "AWS VPC Fundamentals", "Hyper-V", "GNS3 / EVE-NG / Packet Tracer"],
+  "Automation & Monitoring": ["Python (Netmiko)", "Ansible Fundamentals", "Wireshark", "Bash / PowerShell"],
 };
 
 export const certs = [
@@ -54,7 +52,6 @@ export const websites = [
   {
     title: "Ethiopian Space Science Society",
     url: "https://membership.ethiosss.org/",
-    preview: "/website-previews/ethiosss.jpg",
     description: "Official website for the Ethiopian Space Science Society, promoting space science education and research in Ethiopia.",
     impact:
       "Launched a production membership experience with improved organization visibility and digital outreach."
@@ -70,7 +67,7 @@ export const featured = [
 ];
 
 export const contact = {
-  email: "nebilyisehakk@gmail.com",
+  email: "nebilyk@gmail.com",
   github: "https://github.com/Nebil1",
-  linkedin: "https://www.linkedin.com/in/nebil-yisehak/",
+  linkedin: "https://www.linkedin.com/in/nebilyisehak/",
 };
